@@ -1,4 +1,4 @@
 coptions = -Wall -g -ggdb
 
-login.cgi :
-	gcc ${coptions} -o login.cgi login.c
+login.cgi : login.c
+	gcc ${coptions} login.c -o login.cgi
