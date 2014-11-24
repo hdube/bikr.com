@@ -78,6 +78,7 @@ print"<html>";
 	#if it was a new user, append the information to the file
 	open(my $fh, '>>', $filename) or die "Cannot open $filename";
 	if($newUser){
+		print "1";
 		print $fh "$fullname,$username,$password1\n";
 			 print qq(<head>);
                         print qq(<link rel="stylesheet" type="text/css" href="mystyle.css">);
@@ -96,8 +97,10 @@ print"<html>";
                             print qq(<tr>);
                                 print qq(<td> </td>);
                                 print qq(<td><a href="public.html">Home</a></td>);
+				print qq(<td><a href="Catalogue.html">Catalogue</a></td>);
                                 print qq(<td><a href="Registration.html"><b>Registration</a></td>);
-                            print qq(</tr>);
+                            	print qq(<td><a href="login.html">Login</a></td>);
+			    print qq(</tr>);
                         print qq(</table>);
                         print qq(</nav>);
                         print qq(<br>);
