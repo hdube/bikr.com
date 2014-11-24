@@ -6,17 +6,10 @@
 #define NAME_SIZE 64
 #define LINE_SIZE (2+NAME_SIZE+2*INPUT_SIZE)
 
-#define REDIRECT_PAGE "index.html"
-
-//struct flags
-#define EXISTS (1 << 0) 	//00000001
-#define ONLINE (1 << 1)		//00000010
-
 typedef struct {
 	char *realname;
 	char *username;
 	char *password;
-	char  flags; 	//I use char since it's the smallest data type
 } USER;
 
 void  getInput(char *,int *, int);
@@ -47,8 +40,7 @@ int main(int argc, char *argv[])
 	USER *user;
 
 	if (file_ptr == NULL) {
-		//error handling
-		return -1;
+		return EXIT_FAILURE;
 	}
 
 	for (fgets(line, LINE_SIZE, file_ptr); !feof(file_ptr);
@@ -59,8 +51,16 @@ int main(int argc, char *argv[])
 	fclose(file_ptr);
 
 	//////////////////
+	// Logging in
+	//////////////////
+	file_ptr = fopen("loggedIn.csv", "wt");
+    fprintf(file_ptr,"%s\n",username);
+	fclose(file_ptr);
+
+	//////////////////
 	// Display page
 	//////////////////
+	/*
 	file_ptr = fopen(REDIRECT_PAGE, "rt");
 	char *page_line  = (char *)malloc(256);
 	*(page_line+255) = '\0';
@@ -76,12 +76,13 @@ int main(int argc, char *argv[])
 		printf("%s",fgets(page_line,255,file_ptr));
 	fclose(file_ptr);
 	free(page_line);
+	*/
 
 	//////////////////
 	// Testing
 	//////////////////
 	/*printing for testing purposes*/
-	/*
+	
 	printf("Content-type: text/html\n\n");
 	printf("<HTML>\n\n<HEAD>\n<TITLE>Logged in</TITLE>\n</HEAD>\n\n");
 
@@ -91,19 +92,18 @@ int main(int argc, char *argv[])
 		printf("<p>\nI made structure USER as:");
 		printf("<br>realname: %s", user->realname);
 		printf("<br>username: %s", user->username);
-		printf("<br>password: %s", user->password);
-		printf("<br>flags: %d</p>\n</BODY>\n", user->flags);
+		printf("<br>password: %s</p>\n</BODY>\n", user->password);
 		printf("</HTML>");
 	}
 	else printf("<br>Nothing got done...\n");
 	printf("</HTML>");
-	*/	
+		
 
 	free(username);
 	free(password);
-	//printf("Location:%s\n\n",REDIRECT_PAGE);
+	//printf("Location:http://cs.mcgill.ca/~hdube1/public.html");
 
-	return 0;
+	return EXIT_SUCCESS;
 }
 
 
@@ -162,26 +162,6 @@ USER *checkUser(char *username, char *password, char *line)
 			&&*(file_pass+index)!=EOF; index++);
 	*(file_pass+index)='\0';
 
-	/*
-	//NAME
-	for (name_length=0; line[name_length]!=','; name_length++);
-
-	//USER
-	index  = name_length+1; //beginning of username
-	for (user_length=0; line[index+user_length]!=','; user_length++);
-	if (strncmp(username,line+index,user_length)!=0) return NULL;
-
-	//PASSWORD
-	index += user_length+1; //beginning of password
-	for (pass_length=0; line[index+pass_length]!='\n'
-			    ||line[index+pass_length]==EOF; pass_length++);
-	if (strncmp(password,line+index,pass_length)!=0) return NULL;
-
-	//replacing commas with \0
-	*(line+name_length) = '\0';
-	*(line+name_length+user_length+1) = '\0';
-	*/
-
 	if (strcmp(username,file_user)!=0 || strcmp(password,file_pass)!=0)
 		return NULL;
 
@@ -190,7 +170,6 @@ USER *checkUser(char *username, char *password, char *line)
 	retUser->realname = file_name;
 	retUser->username = file_user;
 	retUser->password = file_pass;
-	retUser->flags    = EXISTS;
 
 	return retUser;
 }
