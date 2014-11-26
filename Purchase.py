@@ -53,9 +53,12 @@ print "<head>"
 print "</head>"
 print "<body>"
 print "<h1>Bill </h1>"
-print "<h2>You have bought %s model 1, $1 each </h2>" % str (bike1)
-print "<h2>You have bought %s model 2, $5 each </h2>" % str (bike2)
-print "<h2>You have bought %s model 3, $12 each </h2>" % str (bike3)
+if bike1 != 0 and quantity != 0:
+	print "<h2>You have bought %s model 1, $1 each </h2>" % str (bike1)
+if bike2 != 0 and quantity != 0:
+	print "<h2>You have bought %s model 2, $5 each </h2>" % str (bike2)
+if bike3 != 0 and quantity != 0:
+	print "<h2>You have bought %s model 3, $12 each </h2>" % str (bike3)
 print "<h2>Your total is $%s </h1>" % str (total)
 print "</body>"
 print "</html>"
