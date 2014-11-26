@@ -47,6 +47,16 @@ if bike3_quantity:
 else:
 	quantity3 = 0
 
+#Check inventory, subtract amount if available, if not, display error
+
+with open('Inventory.csv','r') as f:
+	inventory = list(csv.reader(f,delimiter=','))
+"""
+for row in inventory:
+	if row[2]
+"""
+
+
 #Calculate total. If bike1 was unchecked, will have value of 0, even if quantity specified
 total = bike1 * quantity1 + bike2 * quantity2 + bike3 * quantity3
 
@@ -54,8 +64,8 @@ total = bike1 * quantity1 + bike2 * quantity2 + bike3 * quantity3
 logged = 0
 
 with open('loggedIn.csv','rt') as f:
-	reader = csv.reader(f,delimiter=',')
-	for row in reader:
+	loggedList = csv.reader(f,delimiter=',')
+	for row in loggedList:
 		for field in row:
 			if field == user:
 				logged = 1
@@ -75,6 +85,9 @@ if logged == 1:
 	if bike3 != 0 and quantity3 != 0:
 		print "<h2>You have bought %s model 3, $12 each </h2>" % str (quantity3)
 	print "<h2>Your total is $%s </h1>" % str (total)
+	print "<br>"
+	print '<h1><a href="http://www.cs.mcgill.ca/~ttruon11/Catalogue.html">Click here to go back to the catalogue</a></h1>'
+	print '<h1><a href="http://www.cs.mcgill.ca/~ttruon11/public.html">Click here to go back to the home page</a></h1>'
 	print "</body>"
 	print "</html>"
 else:
@@ -84,7 +97,7 @@ else:
 	print "</head>"
 	print "<body>"
 	print "<h1>You are not logged in.<h1>"
-#	print "<h2><a href="http://www.google.ca">Click here to go back to catalogue</a></h2>"
+	print '<h2><a href="http://www.cs.mcgill.ca/~ttruon11/Catalogue.html">Click here to go back to catalogue</a></h2>'
 	print "</body>"	
 	print "</html>"
 
