@@ -31,7 +31,7 @@ if bike3_buy:
 	bike3 = int (bike3_buy)
 else:
 	bike3 = 0
-
+########################################
 if bike1_quantity:
 	quantity1 = int (bike1_quantity)
 else:
@@ -46,16 +46,7 @@ if bike3_quantity:
 	quantity3 = int (bike3_quantity)
 else:
 	quantity3 = 0
-
-#Check inventory, subtract amount if available, if not, display error
-
-with open('Inventory.csv','r') as f:
-	inventory = list(csv.reader(f,delimiter=','))
-"""
-for row in inventory:
-	if row[2]
-"""
-
+########################################
 
 #Calculate total. If bike1 was unchecked, will have value of 0, even if quantity specified
 total = bike1 * quantity1 + bike2 * quantity2 + bike3 * quantity3
@@ -70,26 +61,77 @@ with open('loggedIn.csv','rt') as f:
 			if field == user:
 				logged = 1
 
-#Display bill if logged = 1. Display error page if logged = 0
+#Check inventory, subtract amount if available, if not, display error
+
+with open('Inventory.csv','rt') as f:
+	inventory = list(csv.reader(f,delimiter=','))
+
+insufficient1 = 0
+insufficient2 = 0
+insufficient3 = 0
+
+for line in inventory[0:3]:
+	if line[0] == 'Bike1':
+		if int(line[1]) >= quantity1:
+			line[1] = int(line[1]) - quantity1
+			continue
+		else:
+			insufficient1 = 1
+	if line[0] == 'Bike2':
+		if int(line[1]) >= quantity2:
+			line[1] = int(line[1]) - quantity2
+			continue
+		else:
+			insufficient2 = 1
+	if line[0] == 'Bike3':
+		if int(line[1]) >= quantity3:
+			line[1] = int(line[1]) - quantity3
+			continue
+		else:
+			insufficient3 = 1
+
+#Display page depending on conditions (logged, inventory sufficient)
+
 if logged == 1:
-	print "Content-type:text/html\n\n"
-	print "<html>"
-	print "<head>"
-	print "</head>"
-	print "<body>"
-	print "<h1>Bill </h1>"
-	if bike1 != 0 and quantity1 != 0:
-		print "<h2>You have bought %s model 1, $1 each </h2>" % str (quantity1)
-	if bike2 != 0 and quantity2 != 0:
-		print "<h2>You have bought %s model 2, $5 each </h2>" % str (quantity2)
-	if bike3 != 0 and quantity3 != 0:
-		print "<h2>You have bought %s model 3, $12 each </h2>" % str (quantity3)
-	print "<h2>Your total is $%s </h1>" % str (total)
-	print "<br>"
-	print '<h1><a href="http://www.cs.mcgill.ca/~ttruon11/Catalogue.html">Click here to go back to the catalogue</a></h1>'
-	print '<h1><a href="http://www.cs.mcgill.ca/~ttruon11/public.html">Click here to go back to the home page</a></h1>'
-	print "</body>"
-	print "</html>"
+	if insufficient1 == 0 and insufficient2 == 0 and insufficient3 ==0:
+		
+		with open('Inventory.csv','wb') as f:
+			writer = csv.writer(f)
+			for rows in inventory:
+				writer.writerow(rows)	
+
+		print "Content-type:text/html\n\n"
+		print "<html>"
+		print "<head>"
+		print "</head>"
+		print "<body>"
+		print "<h1>Bill </h1>"
+		if bike1 != 0 and quantity1 != 0:
+			print "<h2>You have bought %s model 1, $1 each </h2>" % str (quantity1)
+		if bike2 != 0 and quantity2 != 0:
+			print "<h2>You have bought %s model 2, $5 each </h2>" % str (quantity2)
+		if bike3 != 0 and quantity3 != 0:
+			print "<h2>You have bought %s model 3, $12 each </h2>" % str (quantity3)
+		print "<h2>Your total is $%s </h1>" % str (total)
+		print "<br>"
+		print '<h1><a href="http://www.cs.mcgill.ca/~ttruon11/Catalogue.html">Click here to go back to the catalogue</a></h1>'
+		print '<h1><a href="http://www.cs.mcgill.ca/~ttruon11/public.html">Click here to go back to the home page</a></h1>'
+		print "</body>"
+		print "</html>"
+	else:
+		print "Content-type:text/html\n\n"
+		print "<html>"
+		print "<head>"
+		print "</head>"
+		print "<body>"
+		if insufficient1 == 1:
+			print "<p>There are not sufficient model 1 left. Please change your order</p>"
+		if insufficient2 == 1:
+			print "<p>There are not sufficient model 2 left. Please change your order</p>"
+		if insufficient3 == 1:
+			print "<p>There are not sufficient model 3 left. Please change your order</p>"
+		print "</body>"
+		print "</html>" 
 else:
 	print "Content-type:text/html\n\n"
 	print "<html>"
@@ -100,4 +142,3 @@ else:
 	print '<h2><a href="http://www.cs.mcgill.ca/~ttruon11/Catalogue.html">Click here to go back to catalogue</a></h2>'
 	print "</body>"	
 	print "</html>"
-
