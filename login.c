@@ -5,15 +5,13 @@
 #define INPUT_SIZE 64
 #define NAME_SIZE 64
 #define LINE_SIZE (2+NAME_SIZE+2*INPUT_SIZE)
-
-typedef struct {
-	char *realname;
-	char *username;
-	char *password;
-} USER;
+#define LINE_NUMBER 79
 
 void  getInput(char *,int *, int);
-USER *checkUser(char *,char *,char *);
+int searchUser(char *,char *,char *);
+
+void wrongUsername();
+void wrongPassword();
 
 int main(int argc, char *argv[])
 {
@@ -37,71 +35,92 @@ int main(int argc, char *argv[])
 	/*checking against members.csv*/
 	FILE *file_ptr = fopen("members.csv","rt");
 	char *line = (char *)malloc(LINE_SIZE+1);
-	USER *user;
+    int check;
 
 	if (file_ptr == NULL) {
 		return EXIT_FAILURE;
 	}
-
-	for (fgets(line, LINE_SIZE, file_ptr); !feof(file_ptr);
-				fgets(line, LINE_SIZE, file_ptr)) {
-		if((user = checkUser(username, password, line)) != NULL)
-			break;
+    
+    else {
+        fgets(line, LINE_SIZE, file_ptr);
+	    for (fgets(line, LINE_SIZE, file_ptr); !feof(file_ptr);
+	    			fgets(line, LINE_SIZE, file_ptr)) {
+            if ((check = searchUser(username,password,line)) >= 0)
+                break;
+        }
 	}
 	fclose(file_ptr);
+
+    if (check == -1) wrongUsername();
+    if (check == 0 ) wrongPassword();
+    if (check < 1  ) return EXIT_FAILURE;
+
+    free(password);
 
 	//////////////////
 	// Logging in
 	//////////////////
-	file_ptr = fopen("loggedIn.csv", "wt");
-    fprintf(file_ptr,"%s\n",username);
+	file_ptr = fopen("loggedIn.csv", "r+wt");
+    int logged_in = 0;  //assume false
+
+    if (file_ptr == NULL) {
+        return EXIT_FAILURE;
+    }
+
+    else {
+        int user_length = 0;
+        for (;*(username+user_length)!='\0';user_length++);
+        for (fgets(line, LINE_SIZE, file_ptr); !feof(file_ptr);
+                    fgets(line, LINE_SIZE, file_ptr)) {
+            if (strncmp(username,line,user_length)==0) {
+                logged_in = 1;
+                break;
+            }
+        }
+        if (logged_in == 0) {
+            fprintf(file_ptr,"%s\n",username);
+        }
+    }
 	fclose(file_ptr);
 
 	//////////////////
 	// Display page
 	//////////////////
-	/*
-	file_ptr = fopen(REDIRECT_PAGE, "rt");
+	file_ptr = fopen("Catalogue.html", "rt");
 	char *page_line  = (char *)malloc(256);
 	*(page_line+255) = '\0';
 	int counter;
 
 	printf("Content-type: text/html\n\n");
 
-	for (counter=0; counter<12; counter++)
+    //copy beginning of page
+	for (counter=0; counter<LINE_NUMBER-1; counter++)
 		printf("%s",fgets(page_line,255,file_ptr));
-	printf("<input type=\"hidden\" name=\"user\" value=\"%s\">\n",
-			user->username);
-	for (; counter<15; counter++)
+    //we replace the hidden field with a new one with non-empty value
+	printf("\t\t<input type=\"hidden\" name=\"user\" value=\"%s\">\n", username);
+    //ignore the hidden field previously there
+    fgets(page_line,255,file_ptr);
+    //copy rest of page
+    while (!feof(file_ptr)) {
 		printf("%s",fgets(page_line,255,file_ptr));
+    }
 	fclose(file_ptr);
 	free(page_line);
-	*/
 
 	//////////////////
 	// Testing
 	//////////////////
 	/*printing for testing purposes*/
-	
+	/*
 	printf("Content-type: text/html\n\n");
 	printf("<HTML>\n\n<HEAD>\n<TITLE>Logged in</TITLE>\n</HEAD>\n\n");
 
-	printf("<BODY>\nI recieved string of size %d: %s AND %s.\n",
-						data_size, username, password);
-	if (user != NULL) {
-		printf("<p>\nI made structure USER as:");
-		printf("<br>realname: %s", user->realname);
-		printf("<br>username: %s", user->username);
-		printf("<br>password: %s</p>\n</BODY>\n", user->password);
-		printf("</HTML>");
-	}
-	else printf("<br>Nothing got done...\n");
-	printf("</HTML>");
+	printf("<BODY>\nI recieved string of size %d: %s AND <b>PASSWORD FORGOTTEN</b>.\n",
+						data_size, username);
+    printf("The search returned %d.\n", check);
+	printf("</BODY>\n</HTML>");*/
 		
-
 	free(username);
-	free(password);
-	//printf("Location:http://cs.mcgill.ca/~hdube1/public.html");
 
 	return EXIT_SUCCESS;
 }
@@ -141,35 +160,47 @@ void getInput(char *str, int *count, int max)
 
 
 /*
- * checkUser function:
- * This method returns NULL if the username/password doesn't match
- * with the line string provided (from the members.csv).
- * It returns a pointer to a USER struct containing the user info otherwise.
+ * searchUser function:
+ * This method returns 1 if the username and password matched the line.
  */
-USER *checkUser(char *username, char *password, char *line)
+int searchUser(char *username, char *password, char *line)
 {
-	//int name_length, user_length, pass_length, index;
-	int index;
-	char *file_name = line, *file_user, *file_pass;
+    char *token;
 
-	for (index=0; *(file_name+index)!=','; index++);
-	*(file_name+index)='\0';
-	file_user = file_name+index+1;
-	for (index=0; *(file_user+index)!=','; index++);
-	*(file_user+index)='\0';
-	file_pass = file_user+index+1;
-	for (index=0; *(file_pass+index)!='\n'
-			&&*(file_pass+index)!=EOF; index++);
-	*(file_pass+index)='\0';
+    token = strtok(line,",");
+    token = strtok(NULL,",");
+    if (strcmp(token,username)!=0) return -1;   //User was not found
+    token = strtok(NULL,"\n");
+    char EOF_delim[2] = {EOF,'\0'};
+    token = strtok(token,EOF_delim);
+    if (strcmp(token,password)!=0) return 0;   //User was found but did not match
+    else return 1;  //User was found and matched
+}
 
-	if (strcmp(username,file_user)!=0 || strcmp(password,file_pass)!=0)
-		return NULL;
 
-	//creating USER
-	USER *retUser = (USER *)malloc(sizeof(USER));
-	retUser->realname = file_name;
-	retUser->username = file_user;
-	retUser->password = file_pass;
+/*
+ *
+ */
+void wrongUsername()
+{
+	printf("Content-type: text/html\n\n");
+	printf("<HTML>\n\n<HEAD>\n<TITLE>Logging in error</TITLE>\n</HEAD>\n\n");
 
-	return retUser;
+	printf("<BODY>\nThe username recieved could not be traced back in our databases: please try again.\n");
+    printf("\n");
+	printf("</BODY>\n</HTML>");
+}
+
+
+/*
+ *
+ */
+void wrongPassword()
+{
+	printf("Content-type: text/html\n\n");
+	printf("<HTML>\n\n<HEAD>\n<TITLE>Logging in error</TITLE>\n</HEAD>\n\n");
+
+	printf("<BODY>\nThe password and username did not match our databases: please try again.\n");
+    printf("\n");
+	printf("</BODY>\n</HTML>");
 }
