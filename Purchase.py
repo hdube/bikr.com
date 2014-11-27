@@ -94,7 +94,7 @@ for line in inventory[0:3]:
 
 if logged == 1:
 	if insufficient1 == 0 and insufficient2 == 0 and insufficient3 ==0:
-		
+				
 		with open('Inventory.csv','wb') as f:
 			writer = csv.writer(f)
 			for rows in inventory:
