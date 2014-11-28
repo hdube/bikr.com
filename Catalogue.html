@@ -1,50 +1,7 @@
 <html>
 <head>		
-<style> 
-header{
-	background-color:#8B0000;
-	font-family: Helvetica;
-	padding:5px;
-	opacity: 0.9;
-}
-nav {
-	background-color:#eeeeee;
-	font-family: Helvetica;
-	padding:7px;
-	opacity: 0.9;
-}
-body{
-	background-image: url("Images/background.jpg");
-}
-section{
-	font-family: Helvetica;
-	padding:10px;
-	background-color:white;
-	opacity: 0.8;
-}
-footer {
-    	background-color:black;
-    	font-family: Helvetica;
-    	color:white;
-    	clear:both;
-    	text-align:center;
-    	position:absolute;
-  	width:100%;
-}
-a:link {
-	color:black;
-	background-color:#eeeeee;
-	text-decoration:none;
-	padding:10px;
-	padding-right:50px;
-	padding-left:50px;
-}
-a:visited {
-	text-decoration:none;
-}
-a:hover {
-	background-color:lightgray;
-}
+<link rel="stylesheet" type="text/css" href="mystyle.css">
+<style>
 img {
 	width: 200px;
 	height: auto;
@@ -62,18 +19,18 @@ img {
 <table>
     <tr>
         <td> </td>
-        <td><a href="public.html"><b>Home</a></td>
-        <td><a href="Catalogue.html">Catalogue</a></td>
+        <td><a href="public.html">Home</a></td>
+        <td><a href="Catalogue.html"><b>Catalogue</b></a></td>
         <td><a href="login.html">Login</a></td>
         <td><a href="Registration.html">Registration</a></td>
     </tr>
 </table>
 </nav>
 <br>
-<section>
-<h1>Catalog</h1>
+<section style="width:1000px">
+<h1>Catalogue</h1>
 <table style="margin-left:auto;margin-right:auto;padding:5px">
-<form action="./Purchase.py" method="post">
+<form action="Purchase.py" method="post">
 	<tr>
 		Bikr Shop: where real bikrs buy their bikes
 		<input type="hidden" name="user" value="">
@@ -84,7 +41,7 @@ img {
 		<td>AMAZING BIKE OMG</td>
 		<td>$1</td>
 		<td><input type="checkbox" name="bike_1" value="1" /></td>
-		<td><input type="number" name="quantity_1" min="1"></td>
+		<td><input type="number" name="quantity_1" min="0" value="0"></td>
 	</tr>
 	<tr>
 		<td>Bike 2</td>
@@ -92,7 +49,7 @@ img {
 		<td style="width:200px">EVEN MORE AMAZING BIKE BUY NOW</td>
 		<td>$5</td>
 		<td><input type="checkbox" name="bike_2" value="5" /></td>
-		<td><input type="number" name="quantity_2" min="1"></td>
+		<td><input type="number" name="quantity_2" min="0" value="0"></td>
 	</tr>
 	<tr>
 		<td>Bike 3</td>
@@ -100,7 +57,7 @@ img {
 		<td>DEFINITELY NOT STOLEN</td>
 		<td>$12</td>
 		<td><input type="checkbox" name="bike_3" value="12" /></td>
-		<td><input type="number" name="quantity_3" min="1"></td>
+		<td><input type="number" name="quantity_3" min="0" value="0"></td>
 	</tr>
 	<tr>	
 		<td></td><td></td><td></td>
