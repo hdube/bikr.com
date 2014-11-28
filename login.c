@@ -5,14 +5,11 @@
 #define INPUT_SIZE 64
 #define NAME_SIZE 64
 #define LINE_SIZE (2+NAME_SIZE+2*INPUT_SIZE)
-#define LINE_NUMBER 79
+#define LINE_NUMBER 36
 
 void  getInput(char *,int *, int);
 int searchUser(char *,char *,char *);
 void printError(char *);
-
-void wrongUsername();
-void wrongPassword();
 
 int main(int argc, char *argv[])
 {
@@ -53,8 +50,8 @@ int main(int argc, char *argv[])
 	fclose(file_ptr);
 
     //error pages
-    if (check == -1) printError("The username and password did not match in our database. Please try again.");
-    if (check == 0 ) wrongPassword();
+    if (check == -1) printError("The username does not exist. Please try again.");
+    if (check == 0 ) printError("The password entered did not match the username. Please try again.");
     if (check < 1  ) return EXIT_FAILURE;
 
     free(password);
