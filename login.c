@@ -9,6 +9,7 @@
 
 void  getInput(char *,int *, int);
 int searchUser(char *,char *,char *);
+void printError(char *);
 
 void wrongUsername();
 void wrongPassword();
@@ -51,7 +52,8 @@ int main(int argc, char *argv[])
 	}
 	fclose(file_ptr);
 
-    if (check == -1) wrongUsername();
+    //error pages
+    if (check == -1) printError("The username and password did not match in our database. Please try again.");
     if (check == 0 ) wrongPassword();
     if (check < 1  ) return EXIT_FAILURE;
 
@@ -203,4 +205,30 @@ void wrongPassword()
 	printf("<BODY>\nThe password and username did not match our databases: please try again.\n");
     printf("\n");
 	printf("</BODY>\n</HTML>");
+}
+
+
+/*
+ *
+ */
+void printError(char *error_message)
+{
+    printf("Content-type: text/html\n\n");
+    printf("<html>\n\n");
+    printf("<head>\n");
+    printf("<link rel=\"stylesheet\" type=\"text/css\" href=\"mystyle.css\"\n");
+    printf("</head>\n\n<body>\n\n");
+    printf("<header>\n");
+    printf("<img style=\"float:center;width:230px;height:160px\" src=\"Images/logo-2.jpg\">\n");
+    printf("</header>\n\n");
+    
+    printf("<nav>\n<table>\n\t<tr>\n\t\t<td> </td>\n");
+    printf("\t\t<td><a href=\"public.html\">Home</a></td>\n");
+    printf("\t\t<td><a href=\"login.html\"><b>Login</b></a></td>\n");
+    printf("\t</tr>\n</table>\n</nav>\n<br>\n\n");
+
+    printf("<section>\n%s\n</section>\n\n>",error_message);
+
+    printf("<footer>\nCopyright *** bikr.com\n</footer>\n\n");
+    printf("</body>\n</html>");
 }

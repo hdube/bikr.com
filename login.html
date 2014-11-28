@@ -2,54 +2,7 @@
 <html>
 
 <head>
-<style>
-header {
-    background-color:#8B0000;
-    font-family: Helvetica;
-    padding:5px;
-    opacity: 0.9;
-}
-nav {
-    background-color:#eeeeee;
-    font-family: Helvetica;
-    padding:7px;
-    opacity: 0.9;
-}
-body{
-    background-image: url("Images/background.jpg");
-}
-section{
-    font-family: Helvetica;
-    padding:10px;
-    background-color:white;
-    opacity: 0.8;
-}
-footer {
-    background-color:black;
-    font-family: Helvetica;
-    color:white;
-    clear:both;
-    text-align:center;
-    position:absolute;
-    bottom:17px;
-    width:100%;
-}
-a:link {
-    color:black;
-    background-color:#eeeeee;
-    text-decoration:none;
-    padding:10px;
-    padding-right:50px;
-    padding-left:50px;
-}
-a:visited {
-    text-decoration:none;
-}
-a:hover {
-    background-color:lightgray;
-}
-
-</style>
+<link rel="stylesheet" type="text/css" href="mystyle.css">
 </head>
 
 <body>
@@ -63,27 +16,31 @@ a:hover {
 <table>
     <tr>
         <td> </td>
-        <td><a href="public.html"><b>Home</a></td>
-        <td><a href="Catalogue.html"><b>Catalogue</a></td>
-        <td><a href="login.html"><b>Login</a></td>
-        <td><a href="Registration.html"><b>Registration</a></td>
+        <td><a href="public.html">Home</a></td>
+        <td><a href="Catalogue.html">Catalogue</a></td>
+        <td><a href="login.html"><b>Login</b></a></td>
+        <td><a href="Registration.html">Registration</a></td>
     </tr>
 </table>
 </nav>
 <br>
 
-<section>
-<h1> Login  </h1>
-<center>
+<section style="width: 400px">
+<fieldset>
+<legend>Login:</legend>
+
 <!-- post doesn't put the password in the URL  -->
 <form name="input" action="./login.cgi" method="post">
-    Username: <input type="text" name="username" maxlength=64>
-    <br><br>
-    Password: <input type="password" name="password" maxlength=64>
-    <br><br>
-    <input type="submit" value="Login">
+    <p>Username:<br>
+    <input type="text" name="username" maxlength=64><br></p>
+
+    <p>Password:<br>
+    <input type="password" name="password" maxlength=64><br></p>
+
+    <p><input type="submit" value="Login"></p>
 </form>
-</center>
+
+</fieldset>
 </section>
 
 <footer>
