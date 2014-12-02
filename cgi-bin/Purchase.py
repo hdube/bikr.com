@@ -114,8 +114,8 @@ if logged == 1:
 			print "<h2>You have bought %s model 3, $12 each </h2>" % str (quantity3)
 		print "<h2>Your total is $%s </h1>" % str (total)
 		print "<br>"
-		print '<h1><a href="Catalogue.html">Click here to go back to the catalogue</a></h1>'
-		print '<h1><a href="public.html">Click here to go back to the home page</a></h1>'
+		print '<h1><a href="../Catalogue.html">Click here to go back to the catalogue</a></h1>'
+		print '<h1><a href="../public.html">Click here to go back to the home page</a></h1>'
 		print "</body>"
 		print "</html>"
 	else:
@@ -139,6 +139,6 @@ else:
 	print "</head>"
 	print "<body>"
 	print "<h1>You are not logged in.<h1>"
-	print '<h2><a href="Catalogue.html">Click here to go back to catalogue</a></h2>'
+	print '<h2><a href="../Catalogue.html">Click here to go back to catalogue</a></h2>'
 	print "</body>"	
 	print "</html>"
