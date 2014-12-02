@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 	// Checking
 	//////////////////
 	/*checking against members.csv*/
-	FILE *file_ptr = fopen("members.csv","rt");
+	FILE *file_ptr = fopen("../data/members.csv","rt");
 	char *line = (char *)malloc(LINE_SIZE+1);
     int check;
 
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 	//////////////////
 	// Logging in
 	//////////////////
-	file_ptr = fopen("loggedIn.csv", "r+wt");
+	file_ptr = fopen("../data/loggedIn.csv", "r+wt");
     int logged_in = 0;  //assume false
 
     if (file_ptr == NULL) {
