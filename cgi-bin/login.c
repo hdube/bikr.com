@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
 	//////////////////
 	// Display page
 	//////////////////
-	file_ptr = fopen("Catalogue.html", "rt");
+	file_ptr = fopen("CatalogueTemplate.html", "rt");
 	char *page_line  = (char *)malloc(256);
 	*(page_line+255) = '\0';
 	int counter;
@@ -106,19 +106,6 @@ int main(int argc, char *argv[])
 	fclose(file_ptr);
 	free(page_line);
 
-	//////////////////
-	// Testing
-	//////////////////
-	/*printing for testing purposes*/
-	/*
-	printf("Content-type: text/html\n\n");
-	printf("<HTML>\n\n<HEAD>\n<TITLE>Logged in</TITLE>\n</HEAD>\n\n");
-
-	printf("<BODY>\nI recieved string of size %d: %s AND <b>PASSWORD FORGOTTEN</b>.\n",
-						data_size, username);
-    printf("The search returned %d.\n", check);
-	printf("</BODY>\n</HTML>");*/
-		
 	free(username);
 
 	return EXIT_SUCCESS;
@@ -160,7 +147,7 @@ void getInput(char *str, int *count, int max)
 
 /*
  * searchUser function:
- * This method returns 1 if the username and password matched the line.
+ * This function returns 1 if the username and password matched the line.
  */
 int searchUser(char *username, char *password, char *line)
 {
@@ -178,50 +165,23 @@ int searchUser(char *username, char *password, char *line)
 
 
 /*
- *
- */
-void wrongUsername()
-{
-	printf("Content-type: text/html\n\n");
-	printf("<HTML>\n\n<HEAD>\n<TITLE>Logging in error</TITLE>\n</HEAD>\n\n");
-
-	printf("<BODY>\nThe username recieved could not be traced back in our databases: please try again.\n");
-    printf("\n");
-	printf("</BODY>\n</HTML>");
-}
-
-
-/*
- *
- */
-void wrongPassword()
-{
-	printf("Content-type: text/html\n\n");
-	printf("<HTML>\n\n<HEAD>\n<TITLE>Logging in error</TITLE>\n</HEAD>\n\n");
-
-	printf("<BODY>\nThe password and username did not match our databases: please try again.\n");
-    printf("\n");
-	printf("</BODY>\n</HTML>");
-}
-
-
-/*
- *
+ * printError function:
+ * This function prints a template HTML page with an error message.
  */
 void printError(char *error_message)
 {
     printf("Content-type: text/html\n\n");
     printf("<html>\n\n");
     printf("<head>\n");
-    printf("<link rel=\"stylesheet\" type=\"text/css\" href=\"mystyle.css\"\n");
+    printf("<link rel=\"stylesheet\" type=\"text/css\" href=\"../mystyle.css\"\n");
     printf("</head>\n\n<body>\n\n");
     printf("<header>\n");
-    printf("<img style=\"float:center;width:230px;height:160px\" src=\"Images/logo-2.jpg\">\n");
+    printf("<img style=\"float:center;width:230px;height:160px\" src=\"../Images/logo-2.jpg\">\n");
     printf("</header>\n\n");
     
     printf("<nav>\n<table>\n\t<tr>\n\t\t<td> </td>\n");
-    printf("\t\t<td><a href=\"public.html\">Home</a></td>\n");
-    printf("\t\t<td><a href=\"login.html\"><b>Login</b></a></td>\n");
+    printf("\t\t<td><a href=\"../public.html\">Home</a></td>\n");
+    printf("\t\t<td><a href=\"../login.html\"><b>Login</b></a></td>\n");
     printf("\t</tr>\n</table>\n</nav>\n<br>\n\n");
 
     printf("<section>\n%s\n</section>\n\n>",error_message);
