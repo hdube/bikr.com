@@ -54,7 +54,7 @@ total = bike1 * quantity1 + bike2 * quantity2 + bike3 * quantity3
 #Check inside loggedIn.csv if 'user' (from hidden field) is in it
 logged = 0
 
-with open('loggedIn.csv','rt') as f:
+with open('../data/loggedIn.csv','rt') as f:
 	loggedList = csv.reader(f,delimiter=',')
 	for row in loggedList:
 		for field in row:
@@ -63,7 +63,7 @@ with open('loggedIn.csv','rt') as f:
 
 #Check inventory, subtract amount if available, if not, display error
 
-with open('Inventory.csv','rt') as f:
+with open('../data/Inventory.csv','rt') as f:
 	inventory = list(csv.reader(f,delimiter=','))
 
 insufficient1 = 0
@@ -95,7 +95,7 @@ for line in inventory[0:3]:
 if logged == 1:
 	if insufficient1 == 0 and insufficient2 == 0 and insufficient3 ==0:
 				
-		with open('Inventory.csv','wb') as f:
+		with open('../data/Inventory.csv','wb') as f:
 			writer = csv.writer(f)
 			for rows in inventory:
 				writer.writerow(rows)	

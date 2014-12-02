@@ -5,6 +5,7 @@ login.cgi : login.c
 
 perm :
 	chmod 700 cgi-bin/*
+	chmod 700 data/*
 	chmod 644 *.html
 	chmod 711 Images cgi-bin
 	chmod 644 Images/* *.css
