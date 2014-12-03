@@ -27,6 +27,11 @@ int main(int argc, char *argv[])
 	getInput(username, &count, data_size);
 	getInput(password, &count, data_size);
 
+    if (strcmp(username,"")==0 || strcmp(password,"")==0) {
+        printError("One of the fields was left empty. Please try again.");
+        return EXIT_FAILURE;
+    }
+
 	//////////////////
 	// Checking
 	//////////////////
@@ -50,6 +55,7 @@ int main(int argc, char *argv[])
 	fclose(file_ptr);
 
     //error pages
+    if (check == -2) printError("The website encountered an error. Please try again.");
     if (check == -1) printError("The username does not exist. Please try again.");
     if (check == 0 ) printError("The password entered did not match the username. Please try again.");
     if (check < 1  ) return EXIT_FAILURE;
@@ -154,11 +160,17 @@ int searchUser(char *username, char *password, char *line)
     char *token;
 
     token = strtok(line,",");
+    if (token == NULL) return -2;
+
     token = strtok(NULL,",");
+    if (token == NULL) return -2;
     if (strcmp(token,username)!=0) return -1;   //User was not found
+
     token = strtok(NULL,"\n");
+    if (token == NULL) return -2;
     char EOF_delim[2] = {EOF,'\0'};
     token = strtok(token,EOF_delim);
+    if (token == NULL) return -2;
     if (strcmp(token,password)!=0) return 0;   //User was found but did not match
     else return 1;  //User was found and matched
 }
