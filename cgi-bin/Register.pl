@@ -16,17 +16,56 @@ my $password2 = param('password2');
 
 print"Content-Type:text/html\n\n";
 print"<html>";
-
-	#check if the two passwords entered are the same. If they are not print error
-	if($password1 ne $password2){
-				 print qq(<head>);
-	                        print qq(<link rel="stylesheet" type="text/css" href="mystyle.css">);
+	
+	#check if one of the fields are empty
+	if(($fullname eq "") || ($username eq "") || ($password1 eq "") || ($password2 eq "")){
+				print qq(<head>);
+	                        print qq(<link rel="stylesheet" type="text/css" href="../mystyle.css">);
 	                        print qq(</head>);
 
 	                        print qq(<body>);
 
 	                        print qq(<header>);
-	                        print qq(<img style="float:center;width:230px;height:160px" src="Images/logo-2.jpg">);
+	                        print qq(<img style="float:center;width:230px;height:160px" src="../Images/logo-2.jpg">);
+	                        print qq(<h1 style="float:right;color:white;padding:5px">Call Us: 1-888-245-0000</h1>);
+	                        print qq(</header>);
+
+	                        print qq(<!--make sure to change the size of the header of the current page-->);
+	                        print qq(<nav>);
+	                        print qq(<table>);
+	                            print qq(<tr>);
+	                                print qq(<td> </td>);
+	                                print qq(<td><a href="../public.html">Home</a></td>);
+					print qq(<td><a href="../Catalogue.html">Catalogue</a></td>);
+	                                print qq(<td><a href="../login.html">Login</a></td>);
+	                                print qq(<td><a href="../Registration.html"><b>Registration</a></td>);
+				   				print qq(</tr>);
+	                        print qq(</table>);
+	                        print qq(</nav>);
+	                        print qq(<br>);
+
+	                        print qq(<section>);
+	                        print qq(One of the fields was left empty! Please une the navigation bar to return and try again.);
+	                        print qq(</section>);
+
+	                        print qq(<footer>);
+	                        print qq(Copyright *** bikr.com);
+	                        print qq(</footer>);
+
+	                        print qq(</body>);
+	                        print qq(</html>);
+
+	}
+	#check if the two passwords entered are the same. If they are not print error
+	elsif($password1 ne $password2){
+				 print qq(<head>);
+	                        print qq(<link rel="stylesheet" type="text/css" href="../mystyle.css">);
+	                        print qq(</head>);
+
+	                        print qq(<body>);
+
+	                        print qq(<header>);
+	                        print qq(<img style="float:center;width:230px;height:160px" src="../Images/logo-2.jpg">);
 	                        print qq(<h1 style="float:right;color:white;padding:5px">Call Us: 1-888-245-0000</h1>);
 	                        print qq(</header>);
 
@@ -36,9 +75,9 @@ print"<html>";
 	                            print qq(<tr>);
 	                                print qq(<td> </td>);
 	                                print qq(<td><a href="public.html">Home</a></td>);
-									print qq(<td><a href="Catalogue.html">Catalogue</a></td>);
-	                                print qq(<td><a href="login.html">Login</a></td>);
-	                                print qq(<td><a href="Registration.html"><b>Registration</a></td>);
+									print qq(<td><a href="../Catalogue.html">Catalogue</a></td>);
+	                                print qq(<td><a href="../login.html">Login</a></td>);
+	                                print qq(<td><a href="../Registration.html"><b>Registration</a></td>);
 				   				print qq(</tr>);
 	                        print qq(</table>);
 	                        print qq(</nav>);
@@ -59,13 +98,13 @@ print"<html>";
 	#check if the user entered a comma in the fields
 	elsif((index($fullname, ",") != -1) || (index($username, ",")!= -1) || (index($password1, ",")!= -1)) {
  							print qq(<head>);
-	                        print qq(<link rel="stylesheet" type="text/css" href="mystyle.css">);
+	                        print qq(<link rel="stylesheet" type="text/css" href="../mystyle.css">);
 	                        print qq(</head>);
 
 	                        print qq(<body>);
 
 	                        print qq(<header>);
-	                        print qq(<img style="float:center;width:230px;height:160px" src="Images/logo-2.jpg">);
+	                        print qq(<img style="float:center;width:230px;height:160px" src="../Images/logo-2.jpg">);
 	                        print qq(<h1 style="float:right;color:white;padding:5px">Call Us: 1-888-245-0000</h1>);
 	                        print qq(</header>);
 
@@ -75,9 +114,9 @@ print"<html>";
 	                            print qq(<tr>);
 	                                print qq(<td> </td>);
 	                                print qq(<td><a href="public.html">Home</a></td>);
-									print qq(<td><a href="Catalogue.html">Catalogue</a></td>);
-	                                print qq(<td><a href="login.html">Login</a></td>);
-	                                print qq(<td><a href="Registration.html"><b>Registration</a></td>);
+									print qq(<td><a href="../Catalogue.html">Catalogue</a></td>);
+	                                print qq(<td><a href="../login.html">Login</a></td>);
+	                                print qq(<td><a href="../Registration.html"><b>Registration</a></td>);
 				   				print qq(</tr>);
 	                        print qq(</table>);
 	                        print qq(</nav>);
@@ -97,13 +136,13 @@ print"<html>";
 	#check if the fields are the correct length
 	elsif((length($fullname) > 64) || (length($username) > 64) || (length($password1) > 64)){
 							print qq(<head>);
-	                        print qq(<link rel="stylesheet" type="text/css" href="mystyle.css">);
+	                        print qq(<link rel="stylesheet" type="text/css" href="../mystyle.css">);
 	                        print qq(</head>);
 
 	                        print qq(<body>);
 
 	                        print qq(<header>);
-	                        print qq(<img style="float:center;width:230px;height:160px" src="Images/logo-2.jpg">);
+	                        print qq(<img style="float:center;width:230px;height:160px" src="../Images/logo-2.jpg">);
 	                        print qq(<h1 style="float:right;color:white;padding:5px">Call Us: 1-888-245-0000</h1>);
 	                        print qq(</header>);
 
@@ -113,9 +152,9 @@ print"<html>";
 	                            print qq(<tr>);
 	                                print qq(<td> </td>);
 	                                print qq(<td><a href="public.html">Home</a></td>);
-									print qq(<td><a href="Catalogue.html">Catalogue</a></td>);
-	                                print qq(<td><a href="login.html">Login</a></td>);
-	                                print qq(<td><a href="Registration.html"><b>Registration</a></td>);
+									print qq(<td><a href="../Catalogue.html">Catalogue</a></td>);
+	                                print qq(<td><a href="../login.html">Login</a></td>);
+	                                print qq(<td><a href="../Registration.html"><b>Registration</a></td>);
 				   				print qq(</tr>);
 	                        print qq(</table>);
 	                        print qq(</nav>);
@@ -135,7 +174,7 @@ print"<html>";
 	#add the new user
 	else{
 		#open the database of members
-		my $filename = "data/members.csv"; 
+		my $filename = "../data/members.csv"; 
 		
 		open(INPUT, $filename) or die "Cannot open $filename";
 		
@@ -153,13 +192,13 @@ print"<html>";
 			if($currentUsername eq $username){
 				$newUser = 0;
 				print qq(<head>);
-				print qq(<link rel="stylesheet" type="text/css" href="mystyle.css">);
+				print qq(<link rel="stylesheet" type="text/css" href="../mystyle.css">);
 				print qq(</head>);
 
 				print qq(<body>);
 
 				print qq(<header>);
-				print qq(<img style="float:center;width:230px;height:160px" src="Images/logo-2.jpg">);
+				print qq(<img style="float:center;width:230px;height:160px" src="../Images/logo-2.jpg">);
 				print qq(<h1 style="float:right;color:white;padding:5px">Call Us: 1-888-245-0000</h1>);
 				print qq(</header>);
 
@@ -169,7 +208,7 @@ print"<html>";
 				    print qq(<tr>);
 				        print qq(<td> </td>);
 				        print qq(<td><a href="public.html">Home</a></td>);
-				        print qq(<td><a href="Registration.html"><b>Registration</a></td>);
+				        print qq(<td><a href="../Registration.html"><b>Registration</a></td>);
 				    print qq(</tr>);
 				print qq(</table>);
 				print qq(</nav>);
@@ -196,13 +235,13 @@ print"<html>";
 		if($newUser){
 			print $fh "$fullname,$username,$password1\n";
 				 print qq(<head>);
-	                        print qq(<link rel="stylesheet" type="text/css" href="mystyle.css">);
+	                        print qq(<link rel="stylesheet" type="text/css" href="../mystyle.css">);
 	                        print qq(</head>);
 
 	                        print qq(<body>);
 
 	                        print qq(<header>);
-	                        print qq(<img style="float:center;width:230px;height:160px" src="Images/logo-2.jpg">);
+	                        print qq(<img style="float:center;width:230px;height:160px" src="../Images/logo-2.jpg">);
 	                        print qq(<h1 style="float:right;color:white;padding:5px">Call Us: 1-888-245-0000</h1>);
 	                        print qq(</header>);
 
@@ -212,9 +251,9 @@ print"<html>";
 	                            print qq(<tr>);
 	                                print qq(<td> </td>);
 	                                print qq(<td><a href="public.html">Home</a></td>);
-									print qq(<td><a href="Catalogue.html">Catalogue</a></td>);
-	                                print qq(<td><a href="login.html">Login</a></td>);
-	                                print qq(<td><a href="Registration.html"><b>Registration</a></td>);
+									print qq(<td><a href="../Catalogue.html">Catalogue</a></td>);
+	                                print qq(<td><a href="../login.html">Login</a></td>);
+	                                print qq(<td><a href="../Registration.html"><b>Registration</a></td>);
 				   			print qq(</tr>);
 	                        print qq(</table>);
 	                        print qq(</nav>);
