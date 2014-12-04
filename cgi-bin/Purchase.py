@@ -103,42 +103,66 @@ if logged == 1:
 		print "Content-type:text/html\n\n"
 		print "<html>"
 		print "<head>"
+		print '<link rel="stylesheet" type="text/css" href="../mystyle.css">'
 		print "</head>"
 		print "<body>"
-		print "<h1>Bill </h1>"
+		print "<header>"
+		print '<img style="float:center;width:230px;height:160px" src="../Images/logo-2.jpg">'
+		print '<h1 style="float:right;color:white;padding:5px">Call Us: 1-888-245-0000</h1>'
+		print "</header>"
+		print "<br>"
+		print '<section style="width:750px">'
+		print "<h1><center>Your Bill</center></h1>"
 		if bike1 != 0 and quantity1 != 0:
-			print "<h2>You have bought %s model 1, $1 each </h2>" % str (quantity1)
+			print "<h3>You have bought %s model 1, $1 each </h3>" % str (quantity1)
 		if bike2 != 0 and quantity2 != 0:
-			print "<h2>You have bought %s model 2, $5 each </h2>" % str (quantity2)
+			print "<h3>You have bought %s model 2, $5 each </h3>" % str (quantity2)
 		if bike3 != 0 and quantity3 != 0:
-			print "<h2>You have bought %s model 3, $12 each </h2>" % str (quantity3)
+			print "<h3>You have bought %s model 3, $12 each </h3>" % str (quantity3)
 		print "<h2>Your total is $%s </h1>" % str (total)
 		print "<br>"
-		print '<h1><a href="../Catalogue.html">Click here to go back to the catalogue</a></h1>'
-		print '<h1><a href="../public.html">Click here to go back to the home page</a></h1>'
+		print '<h3><center><a href="../Catalogue.html">Click here to go back to the catalogue</a></center></h3>'
+		print '<h3><center><a href="../public.html">Click here to go back to the home page</a></center></h3>'
+		print "</section>"
 		print "</body>"
 		print "</html>"
 	else:
 		print "Content-type:text/html\n\n"
 		print "<html>"
 		print "<head>"
+		print '<link rel="stylesheet" type="text/css" href="../mystyle.css">'
 		print "</head>"
 		print "<body>"
+		print "<header>"
+		print '<img style="float:center;width:230px;height:160px" src="../Images/logo-2.jpg">'
+		print '<h1 style="float:right;color:white;padding:5px">Call Us: 1-888-245-0000</h1>'
+		print "</header>"
+		print "<br>"
+		print '<section style="width:750px">'
 		if insufficient1 == 1:
-			print "<p>There are not sufficient model 1 left. Please change your order</p>"
+			print "<p>There is not a sufficient amount of model 1 left. Please go back and change your order.</p>"
 		if insufficient2 == 1:
-			print "<p>There are not sufficient model 2 left. Please change your order</p>"
+			print "<p>There is not a sufficient amount of model 2 left. Please go back and change your order.</p>"
 		if insufficient3 == 1:
-			print "<p>There are not sufficient model 3 left. Please change your order</p>"
+			print "<p>There is not a sufficient amount of model 3 left. Please go back and change your order.</p>"
+		print "</section>"
 		print "</body>"
 		print "</html>" 
 else:
 	print "Content-type:text/html\n\n"
 	print "<html>"
 	print "<head>"
+	print '<link rel="stylesheet" type="text/css" href="../mystyle.css">'
 	print "</head>"
 	print "<body>"
-	print "<h1>You are not logged in.<h1>"
-	print '<h2><a href="../Catalogue.html">Click here to go back to catalogue</a></h2>'
+	print "<header>"
+	print '<img style="float:center;width:230px;height:160px" src="../Images/logo-2.jpg">'
+	print '<h1 style="float:right;color:white;padding:5px">Call Us: 1-888-245-0000</h1>'
+	print "</header>"
+	print "<br>"
+	print '<section style="width:750px">'
+	print "<center><h1>You are not logged in.<h1></center>"
+	print '<h2><center><a href="../Catalogue.html">Click here to go back to catalogue.</a></center></h2>'
+	print "</section>"
 	print "</body>"	
 	print "</html>"
