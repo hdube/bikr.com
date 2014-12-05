@@ -18,6 +18,7 @@ Frederick Parsons
     - Register.html
     - Register.pl
     - css & page layouts
+    - public.html
 We all worked together to get the csv files to work together
 We decided on the file structure together
 We helped each other in debugging the code
