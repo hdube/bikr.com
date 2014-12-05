@@ -74,10 +74,14 @@ int main(int argc, char *argv[])
 
     else {
         int user_length = 0;
+        char *loggedUser;
         for (;*(username+user_length)!='\0';user_length++);
-        for (fgets(line, LINE_SIZE, file_ptr); !feof(file_ptr);
-                    fgets(line, LINE_SIZE, file_ptr)) {
-            if (strncmp(username,line,user_length)==0) {
+        for (fgets(line, LINE_SIZE, file_ptr);
+                !feof(file_ptr);
+                fgets(line, LINE_SIZE, file_ptr)) {
+            char EOF_delim[2] = {EOF,'\0'};
+            loggedUser = strtok(line,"\n"), strtok(line,EOF_delim);
+            if (strcmp(username,loggedUser)==0) {
                 logged_in = 1;
                 break;
             }
